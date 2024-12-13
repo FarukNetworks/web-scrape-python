@@ -5,17 +5,27 @@ import csv
 import os
 
 with sync_playwright() as p:
+
     fileDate = datetime.now().strftime("%Y-%m-%d")
+
+    ## ENTER THE SITE NAME HERE 
     sitename = 'wolf-news'
+
     browser = p.chromium.launch()
     page = browser.new_page()
+
+    ## ENTER THE URL HERE 
     page.goto("https://eggsmedia.dev/wolf/articles/news/")
+
+    ## ENTER THE ARTICLE SELECTOR HERE 
     articles = page.query_selector_all("div.grid.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-4.gap-14.max-sm\\:gap-y-5.gsap-animated.gsap-fade-in-up-stagger article")
     
     # Prepare to store links and content
     data = []
 
     for article in articles[:1]:
+
+        ## INSERT THE LOGIC TO SCRAPE THE DATA
         link = article.query_selector("a").get_attribute("href")
         # Open each article page
         article_page = browser.new_page()
